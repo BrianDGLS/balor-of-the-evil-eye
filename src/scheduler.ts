@@ -1,23 +1,9 @@
-import { Game } from './game'
+import { State } from './state-machine'
 
-export class Scheduler {
-  constructor(private readonly game: Game) {}
+export const start = (callback: (timestamp: number) => void) => {
+  State.loop = requestAnimationFrame(callback)
+}
 
-  loop: number = 0
-
-  start() {
-    this.loop = requestAnimationFrame(this.animationFrame)
-  }
-
-  animationFrame = (timestamp: number) => {
-    if (this.game.playing) {
-      this.game.update(timestamp)
-    }
-
-    requestAnimationFrame(this.animationFrame)
-  }
-
-  stop() {
-    cancelAnimationFrame(this.loop)
-  }
+export const stop = () => {
+  cancelAnimationFrame(State.loop)
 }

@@ -1,6 +1,7 @@
-import { Game } from './game'
+import { play, pause, startNewGame } from './game'
+import { mergeStoredState, storeState } from './local-storage'
 
-export function createGameMenu(game: Game): void {
+export function createGameMenu(): void {
   const $newGameButton = document.querySelector('.new-game') as HTMLElement
   const $continueButton = document.querySelector('.continue') as HTMLElement
 
@@ -16,23 +17,37 @@ export function createGameMenu(game: Game): void {
   }
 
   $newGameButton.addEventListener('click', () => {
-    game.new()
+    startNewGame()
 
-    hideElement($newGameButton)
+    storeState()
     hideElement($continueButton)
+    hideElement($playGameButton)
     showElement($pauseGameButton)
   })
 
   $pauseGameButton.addEventListener('click', () => {
-    game.pause()
+    pause()
 
+    storeState()
     hideElement($pauseGameButton)
     showElement($playGameButton)
   })
 
   $playGameButton.addEventListener('click', () => {
-    game.play()
+    play()
 
+    storeState()
+    hideElement($playGameButton)
+    showElement($pauseGameButton)
+  })
+
+  $continueButton.addEventListener('click', () => {
+    mergeStoredState()
+
+    play()
+
+    storeState()
+    hideElement($continueButton)
     hideElement($playGameButton)
     showElement($pauseGameButton)
   })

@@ -1,15 +1,11 @@
-import { Game } from './game'
-import { Renderer } from './renderer'
-import { Scheduler } from './scheduler'
+import { frame } from './game'
+import { start } from './scheduler'
+import { State } from './state-machine'
 import { createGameMenu } from './game-menu'
 
-const $canvas = document.querySelector('canvas') as HTMLCanvasElement
-$canvas.width = 420
-$canvas.height = 420
+State.$canvas.width = 512
+State.$canvas.height = 288
 
-const game = new Game($canvas, new Renderer())
-const scheduler = new Scheduler(game)
+createGameMenu()
 
-scheduler.start()
-
-createGameMenu(game)
+start(frame)
