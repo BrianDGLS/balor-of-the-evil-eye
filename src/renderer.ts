@@ -80,16 +80,18 @@ export const renderPlayer = (ctx: CanvasRenderingContext2D, p: Player) => {
     currentLoopIndex = 0
   }
 
+  const direction = p.direction === 'left' ? 1 : 0
+
   if (p.state === 'idle') {
-    drawIdleFrame(cycleIdleLoop[currentLoopIndex], 0, 0, -32)
+    drawIdleFrame(cycleIdleLoop[currentLoopIndex], direction, 0, -32)
   }
 
   if (p.state === 'run') {
-    drawRunFrame(cycleRunLoop[currentLoopIndex], 0, 0, -32)
+    drawRunFrame(cycleRunLoop[currentLoopIndex], direction, 0, -32)
   }
 
   if (p.state === 'jump') {
-    drawJumpFrame(0, 0, 0, -32)
+    drawJumpFrame(0, direction, 0, -32)
   }
   ctx.restore()
 }
