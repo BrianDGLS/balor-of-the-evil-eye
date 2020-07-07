@@ -1,8 +1,11 @@
+import { Player } from './player'
+
 export const State: { [key: string]: any } = {
   $canvas: document.querySelector('canvas') as HTMLCanvasElement,
 
   game: {
     playing: false,
+    player: new Player(),
   },
 
   hasStoredProgress: false,
