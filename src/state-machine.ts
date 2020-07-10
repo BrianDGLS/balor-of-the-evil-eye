@@ -8,6 +8,11 @@ export const State: { [key: string]: any } = {
     player: new Player(),
   },
 
+  screen: {
+    width: 0,
+    height: 0,
+  },
+
   hasStoredProgress: false,
 
   loop: 0,

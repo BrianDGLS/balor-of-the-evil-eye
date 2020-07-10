@@ -61,7 +61,7 @@ export const renderPlayer = (ctx: CanvasRenderingContext2D, p: Player) => {
 
   frameCount++
 
-  let maxFrames = p.state === 'idle' ? 30 : 8
+  let maxFrames = p.idle ? 30 : 8
 
   if (frameCount >= maxFrames) {
     currentLoopIndex++
@@ -71,28 +71,29 @@ export const renderPlayer = (ctx: CanvasRenderingContext2D, p: Player) => {
   ctx.save()
   ctx.fillStyle = colors.black
   ctx.translate(p.x, p.y)
-  if (p.direction === 'left') {
+  if (p.facingLeft) {
     // flip image
   }
 
-  let loop = p.state === 'idle' ? cycleIdleLoop : cycleRunLoop
+  let loop = p.idle ? cycleIdleLoop : cycleRunLoop
   if (currentLoopIndex >= loop.length) {
     currentLoopIndex = 0
   }
 
-  const direction = p.direction === 'left' ? 1 : 0
+  const direction = p.facingLeft ? 1 : 0
 
-  if (p.state === 'idle') {
+  if (p.idle) {
     drawIdleFrame(cycleIdleLoop[currentLoopIndex], direction, 0, -32)
   }
 
-  if (p.state === 'run') {
+  if (p.running) {
     drawRunFrame(cycleRunLoop[currentLoopIndex], direction, 0, -32)
   }
 
-  if (p.state === 'jump') {
+  if (p.jumping) {
     drawJumpFrame(0, direction, 0, -32)
   }
+
   ctx.restore()
 }
 
